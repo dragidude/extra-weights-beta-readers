@@ -150,13 +150,15 @@ if(!location.hash&&saved&&ids.includes(saved.section)){
  requestAnimationFrame(()=>{window.scrollTo({top:saved.y||0,behavior:'instant'});setTimeout(()=>restoring=false,200);});
  });
 }
-function remember(){if(restoring)return;try{localStorage.setItem(key,JSON.stringify({section:current,y:window.scrollY}));}catch{}}
+function remember(){if(restoring)return;try{localStorage.setItem(key,JSON.stringify({section:current,y:window.scrollY,large}));}catch{}}
 window.addEventListener('scroll',()=>{clearTimeout(timer);timer=setTimeout(remember,200);},{passive:true});
 window.addEventListener('pagehide',remember);
-let large=false;document.getElementById('size').addEventListener('click',()=>{
- large=!large;document.querySelector('article').style.fontSize=large?'24px':'';
+let large=!!(saved&&saved.large);
+function applySize(){document.querySelector('article').style.fontSize=large?'24px':'';
  document.getElementById('size').textContent=large?'A−':'A+';
  document.getElementById('size').setAttribute('aria-label',large?'Use standard reading text size':'Increase reading text size');
-});
+}
+applySize();
+document.getElementById('size').addEventListener('click',()=>{large=!large;applySize();remember();});
 </script>
 </body></html>
