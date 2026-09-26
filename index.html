@@ -4,15 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Read Extra Weights. The complete current manuscript for beta readers.">
 <meta name="color-scheme" content="dark"><title>Extra Weights · BETA READER</title>
-<script>try{if(localStorage.getItem("extra-weights-theme")==="light")document.documentElement.dataset.theme="light";}catch{}const audioToggles=document.querySelectorAll(".audio-toggle");
-audioToggles.forEach(button=>{
- const audio=document.getElementById(button.getAttribute("aria-controls"));
- if(!audio)return;
- const sync=()=>{const playing=!audio.paused&&!audio.ended;button.textContent=playing?"Pause Audio":"Play Audio";button.setAttribute("aria-expanded",String(playing));};
- button.addEventListener("click",async()=>{try{if(audio.paused){await audio.play();}else{audio.pause();}}catch{}sync();});
- audio.addEventListener("play",sync);audio.addEventListener("pause",sync);audio.addEventListener("ended",sync);
-});
-</script>
+<script>try{if(localStorage.getItem("extra-weights-theme")==="light")document.documentElement.dataset.theme="light";}catch{}</script>
 <style>
 :root{--paper:#08292e;--ink:#f1eee0;--muted:#a7c6c5;--line:#285258;--accent:#e9c974;--panel:#10383e}
 :root[data-theme="light"]{color-scheme:light;--paper:#e5efec;--ink:#08292e;--muted:#46696b;--line:#b4cdca;--accent:#705216;--panel:#d2e3df}
@@ -4300,5 +4292,14 @@ function applySize(){document.querySelectorAll('article').forEach(article=>{arti
 }
 applySize();
 document.getElementById('size').addEventListener('click',()=>{large=!large;applySize();remember();});
+
+const audioToggles=document.querySelectorAll(".audio-toggle");
+audioToggles.forEach(button=>{
+ const audio=document.getElementById(button.getAttribute("aria-controls"));
+ if(!audio)return;
+ const sync=()=>{const playing=!audio.paused&&!audio.ended;button.textContent=playing?"Pause Audio":"Play Audio";button.setAttribute("aria-expanded",String(playing));};
+ button.addEventListener("click",async()=>{try{if(audio.paused){await audio.play();}else{audio.pause();}}catch{}sync();});
+ audio.addEventListener("play",sync);audio.addEventListener("pause",sync);audio.addEventListener("ended",sync);
+});
 </script>
 </body></html>
