@@ -4268,7 +4268,7 @@ let saved=null,current='epigraph',timer,restoring=false;
 try{saved=JSON.parse(localStorage.getItem(key));}catch{}
 function show(move=true){
  const requested=location.hash.slice(1);current=ids.includes(requested)?requested:'epigraph';
- ids.forEach(id=>document.getElementById(id).hidden=id!==current);
+ document.querySelectorAll("audio").forEach(audio=>{audio.pause();audio.currentTime=0;});\n ids.forEach(id=>document.getElementById(id).hidden=id!==current);
  contents.value=current;document.title=document.querySelector('#'+current+' h1').textContent+' · Extra Weights';
  if(move){window.scrollTo({top:0,behavior:'instant'});document.querySelector('#'+current+' h1').focus({preventScroll:true});}
 }
@@ -4298,7 +4298,7 @@ audioToggles.forEach(button=>{
  const audio=document.getElementById(button.getAttribute("aria-controls"));
  if(!audio)return;
  const sync=()=>{const playing=!audio.paused&&!audio.ended;button.textContent=playing?"Pause Audio":"Play Audio";button.setAttribute("aria-expanded",String(playing));};
- button.addEventListener("click",async()=>{try{if(audio.paused){await audio.play();}else{audio.pause();}}catch{}sync();});
+ button.addEventListener("click",async()=>{try{if(audio.paused){document.querySelectorAll("audio").forEach(other=>{if(other!==audio){other.pause();other.currentTime=0;}});await audio.play();}else{audio.pause();}}catch{}sync();});
  audio.addEventListener("play",sync);audio.addEventListener("pause",sync);audio.addEventListener("ended",sync);
 });
 </script>
